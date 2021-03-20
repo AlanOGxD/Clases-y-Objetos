@@ -37,11 +37,11 @@ class Paciente(nombre:String, primerAp:String,segundoAP:String, edad:Byte,
         mayor = i
       }
     }
-    println("********+*******************************")
+    println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
     println("La temperatura mayor es: " + temperaturas(mayor)+" °C")
-    println("Registrada el dia: " + fecha(mayor) + " a las: " + horaDeRegistro(mayor))
-    println("La cual corresponde al nivel de bienestar: " + nivelBienestar(mayor))
-    print("Con una humedad de: " + humedad(mayor)+" %")
+    println("fecha: " + fecha(mayor) + "\n Hora: " + horaDeRegistro(mayor))
+    println("Nivel de bienestar: " + nivelBienestar(mayor))
+    print("Humedad: " + humedad(mayor)+" %")
   }
   
   def tempMenor(): Unit={
@@ -51,11 +51,11 @@ class Paciente(nombre:String, primerAp:String,segundoAP:String, edad:Byte,
         menor = i
       }
     }
-    println("********+*******************************")
+   println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
     println("La temperatura mayor es: " + temperaturas(menor)+" °C")
-    println("Registrada el dia: " + fecha(menor) + " a las: " + horaDeRegistro(menor))
-    println("La cual corresponde al nivel de bienestar: " + nivelBienestar(menor))
-    print("Con una humedad de: " + humedad(menor)+" %")
+    println("fecha: " + fecha(menor) + "\n Hora: " + horaDeRegistro(menor))
+    println("Nivel de bienestar: " + nivelBienestar(menor))
+    print("Humedad: " + humedad(menor)+" %")
   }
   
 }
@@ -137,13 +137,13 @@ object Principal {
     
    
   def main(args: Array[String]): Unit = {
-    println("Ingrese el nombre del paciente: ")
+    println("Ingrese el nombre: ")
     val nombre = readLine()
-    println("Ingrese primer apellido del paciente: ")
+    println("Ingrese primer apellido: ")
     val primerAp = readLine()
-    println("Ingrese segundo apellido del paciente: ")
+    println("Ingrese segundo apellido: ")
     val segundoAp = readLine()
-    println("Ingrese edad del paciente: ")
+    println("Ingrese edad: ")
     val edad = readByte()
     println("Numero de mediciones: ")
     val n = readInt()
@@ -151,7 +151,7 @@ object Principal {
     
     
     paciente.imprimir()
-    println("El promedio de Bienestar es: Nivel "+paciente.nivelPromBien())
+    println("El promedio de Bienestar es Nivel: "+paciente.nivelPromBien())
     paciente.tempMayor()
     println()
     paciente.tempMenor()
