@@ -21,12 +21,12 @@ class Paciente(nombre:String, primerAp:String,segundoAP:String, edad:Byte,
     humedad.foreach(println)
   }
   
-  def nivelPromBien(): Unit ={
+  def nivelPromBien(): Double ={
     var sum = 0
     for (i <- 0 until nivelBienestar.length) {
       sum += nivelBienestar(i)
     }
-    sum / nivelBienestar.length
+    (sum / nivelBienestar.length)
   }
   
   def tempMayor(): Unit={
@@ -52,7 +52,7 @@ class Paciente(nombre:String, primerAp:String,segundoAP:String, edad:Byte,
       }
     }
    println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-    println("La temperatura mayor es: " + temperaturas(menor)+" °C")
+    println("La temperatura menor es: " + temperaturas(menor)+" °C")
     println("fecha: " + fecha(menor) + "\n Hora: " + horaDeRegistro(menor))
     println("Nivel de bienestar: " + nivelBienestar(menor))
     print("Humedad: " + humedad(menor)+" %")
@@ -63,11 +63,13 @@ class Paciente(nombre:String, primerAp:String,segundoAP:String, edad:Byte,
 object Principal {
    def llenarFechas(n: Int) = {
     var fechas = new Array[String](n)
-    for (i <- 0 until fechas.length) {
+    println("x "+fechas.length)
+    for (i <- 0 to fechas.length-1) {
       var dia = 0; 
-      val año = 1900 + math.random*( 2021 - 1900).toInt;
-      val mes = 1 + math.random*( 12 - 1).toInt;
-       val j = mes match{
+      val año = (1900 + math.random*( 2021 - 1900)).toInt;
+      val mes = (1 + math.random*( 12 - 1)).toInt;
+      
+      mes match{
       case 1 => (dia = (1 + math.random*( 31 - 1)).toInt)
       case 2 => 
         val x =0;
@@ -76,6 +78,7 @@ object Principal {
         if(h.equals(año)){
           x==1;
           h==2021;
+          
         }
 
       }
@@ -93,7 +96,6 @@ object Principal {
       case 12 => (dia = (1 + math.random*( 31 - 1)).toInt)
       
       }
-      
       fechas(i) = dia + "/" + mes + "/" + año
     }
     fechas
