@@ -1,9 +1,67 @@
+import scala.io.StdIn._
 
 class Paciente(nombre:String, primerAp:String,segundoAP:String, edad:Byte,
                val fecha:Array[String], val horaDeRegistro:Array[String],val nivelBienestar:Array[Byte], 
                val temperaturas:Array[Double],val humedad:Array[Double]) {
   
-  def llenardatos(n : Int){
+   def imprimir(): Unit = {
+    println("Nombre: " + nombre)
+    println("Primer Apellido: " + primerAp)
+    println("Segundo Apellido: " + segundoAP)
+    println("Edad: " + edad)
+    println("Fechas: ")
+    fecha.foreach(println)
+    println("Hora de registro: ")
+    horaDeRegistro.foreach(println)
+    println("Nivel de bienestar: ")
+    nivelBienestar.foreach(println)
+    println("Temperaturas: ")
+    temperaturas.foreach(println)
+    println("Humedad: ")
+    humedad.foreach(println)
+  }
+  
+  def nivelPromBien(): Unit ={
+    var sum = 0
+    for (i <- 0 until nivelBienestar.length) {
+      sum += nivelBienestar(i)
+    }
+    sum / nivelBienestar.length
+  }
+  
+  def tempMayor(): Unit={
+    
+    var mayor = 0
+    for (i <- 0 until temperaturas.length) {
+      if (temperaturas(i) > mayor) {
+        mayor = i
+      }
+    }
+    println("********+*******************************")
+    println("La temperatura mayor es: " + temperaturas(mayor)+" °C")
+    println("Registrada el dia: " + fecha(mayor) + " a las: " + horaDeRegistro(mayor))
+    println("La cual corresponde al nivel de bienestar: " + nivelBienestar(mayor))
+    print("Con una humedad de: " + humedad(mayor)+" %")
+  }
+  
+  def tempMenor(): Unit={
+    var menor = 0
+    for (i <- 0 until temperaturas.length) {
+      if (temperaturas(i) < menor) {
+        menor = i
+      }
+    }
+    println("********+*******************************")
+    println("La temperatura mayor es: " + temperaturas(menor)+" °C")
+    println("Registrada el dia: " + fecha(menor) + " a las: " + horaDeRegistro(menor))
+    println("La cual corresponde al nivel de bienestar: " + nivelBienestar(menor))
+    print("Con una humedad de: " + humedad(menor)+" %")
+  }
+  
+}
+
+object Principal {
+   def llenarFechas(n: Int) = {
     var fechas = new Array[String](n)
     for (i <- 0 until fechas.length) {
       var dia = 0; 
@@ -19,8 +77,7 @@ class Paciente(nombre:String, primerAp:String,segundoAP:String, edad:Byte,
           x==1;
           h==2021;
         }
-          
-          
+
       }
         if(x==0)(dia = (1 + math.random*( 28 - 1)).toInt)
         else(dia = (1 + math.random*( 29 - 1)).toInt)
@@ -39,45 +96,66 @@ class Paciente(nombre:String, primerAp:String,segundoAP:String, edad:Byte,
       
       fechas(i) = dia + "/" + mes + "/" + año
     }
-    
-     var horaRegistro = new Array[String](n)
-    for (i <- 0 until horaRegistro.length) {
-      val hora =  (0 + math.random*( 23 - 0)).toInt
-      val min = (0 + math.random*( 59 - 0)).toInt
-      horaRegistro(i) = hora + ":" + min
-    }
-     
-     var nivelBienestar = new Array[Byte](n)
-    for (i <- 0 until nivelBienestar.length) {
-      nivelBienestar(i) = (1 + math.random*( 5 - 1)).toByte
-    }
-     
-     
-    nivelBienestar
-    horaRegistro
-    
-    
     fechas
   }
   
-  def nivelPromBien(): Unit ={
-    
+  def llenarHoraRegistro(n: Int) = {
+    var horaRegistro = new Array[String](n)
+    for (i <- 0 until horaRegistro.length) {
+      val hora = (0 + math.random*( 23 - 0)).toInt
+      val min = (0 + math.random*( 59 - 0)).toInt
+      horaRegistro(i) = hora + ":" + min
+    }
+    horaRegistro
   }
   
-  def tempMayor(): Unit={}
   
-  def tempMenor(): Unit={}
+  def llenarNivelBienestar(n: Int) = {
+    var nivelBienestar = new Array[Byte](n)
+    for (i <- 0 until nivelBienestar.length) {
+      nivelBienestar(i) = (1 + math.random*( 5 - 1)).toByte
+    }
+    nivelBienestar
+  }
   
-}
-
-object Principal {
+  def llenartemperaturas(n: Int) = {
+    var temperaturas = new Array[Double](n)
+    for (i <- 0 until temperaturas.length) {
+      temperaturas(i) = (-20 + math.random*( 50 +20))
+    }
+    temperaturas
+  }
   
-  
-  
-  
+    def llenarHumedad(n: Int) = {
+    var humedad = new Array[Double](n)
+    for (i <- 0 until humedad.length) {
+      humedad(i) = (0 + math.random*( 100 - 0))
+    }
+    humedad
+  }
+    
+    
+   
   def main(args: Array[String]): Unit = {
+    println("Ingrese el nombre del paciente: ")
+    val nombre = readLine()
+    println("Ingrese primer apellido del paciente: ")
+    val primerAp = readLine()
+    println("Ingrese segundo apellido del paciente: ")
+    val segundoAp = readLine()
+    println("Ingrese edad del paciente: ")
+    val edad = readByte()
+    println("Numero de mediciones: ")
+    val n = readInt()
+    var paciente = new Paciente(nombre, primerAp, segundoAp, edad, llenarFechas(n), llenarHoraRegistro(n), llenarNivelBienestar(n), llenartemperaturas(n), llenarHumedad(n));
     
     
+    paciente.imprimir()
+    println("El promedio de Bienestar es: Nivel "+paciente.nivelPromBien())
+    paciente.tempMayor()
+    println()
+    paciente.tempMenor()
+    println()
     //val p = new Paciente
     
   }
